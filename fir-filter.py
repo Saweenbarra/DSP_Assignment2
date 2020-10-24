@@ -1,5 +1,31 @@
 import numpy as np
 
+def unittest():
+    mockData = np.zeros(10)
+    mockCoeff = np.arange(1,11)
+    filter = FIR_filter(mockCoeff)
+    successCounter = 0
+    for i in range(len(mockData)):
+        sum = 0
+        j = len(mockData) - 1
+        mockData[0] = i
+        test = filter.dofilter(mockData[0])
+        for index in range(len(mockData)):
+            sum += mockData[index] * mockCoeff[index]
+        while(j>0):
+            mockData[j] = mockData[j-1]
+            j -= 1
+        if test == sum:
+            successCounter += 1
+            print("Check successful!")
+        else:
+            print("Check Failed!")
+    if successCounter == len(mockData):
+        print("All checks were successful, the circular buffer FIR filter method is working")
+    else:
+        print("At least one check failed, the circular buffer FIR filter method is not working")
+
+
 class FIR_filter:
 
     def __init__(self,_coefficients):
@@ -32,3 +58,6 @@ class FIR_filter:
         
 
         return self.sum
+
+if __name__ == "__main__":
+    unittest()
