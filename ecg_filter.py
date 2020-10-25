@@ -35,7 +35,7 @@ plt.figure(2)
 tplot = plt.plot(h)
 '''
 # https://www.youtube.com/watch?v=mvlxm8Jzlk4&list=PLxWwb-b9LnpCtqVTaACY_U28EheNGtk_r&index=9
-M = 200
+M = fs*3
 
 #Bandstop markers
 k1 = int(25/fs * M)
@@ -45,6 +45,7 @@ k2 = int(120/fs * M)
 y = np.ones(M)
 
 #Filter function with bandstop
+y[0] = 0
 y[k1:k2+1] = 0
 y[M-k2:M-k1+1] = 0
 
@@ -64,7 +65,16 @@ filter = fir.FIR_filter(h)
 for i in range(len(data)):
     data[i] = filter.dofilter(data[i])
 
+dataf = np.fft.fft(data)
+datafdB = 20*np.log10(abs(dataf)*2/len(dataf)/(pow(2,15)-1))
+
 plt.figure(4)
+fplot = plt.plot(f, datafdB)
+fplot = plt.xlabel("Frequency (Hz)")
+fplot = plt.ylabel("dBFS")
+plt.xscale("log")
+
+plt.figure(5)
 tplot = plt.plot(data)
 
 
