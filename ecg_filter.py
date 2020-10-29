@@ -26,6 +26,7 @@ plt.xscale("log")
 M = fs*2
 
 #Bandstop markers
+
 k1 = int(45/fs * M)
 k2 = int(55/fs * M)
 
@@ -33,6 +34,12 @@ k2 = int(55/fs * M)
 y = np.ones(M)
 
 #Filter function with bandstop
+y[k1:k2+1] = 0
+y[M-k2:M-k1+1] = 0
+
+k1 = int(0/fs * M)
+k2 = int(0.5/fs * M)
+
 y[k1:k2+1] = 0
 y[M-k2:M-k1+1] = 0
 
