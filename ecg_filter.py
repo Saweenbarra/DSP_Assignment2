@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import scipy.signal as signal
 
 data = np.loadtxt("shortecg.dat")
-fs = 500
+fs = 250
 
 plt.figure(1)
 tplot = plt.plot(data)
@@ -38,14 +38,13 @@ tplot = plt.plot(h)
 M = fs*3
 
 #Bandstop markers
-k1 = int(25/fs * M)
-k2 = int(120/fs * M)
+k1 = int(45/fs * M)
+k2 = int(55/fs * M)
 
 #Filter function before bandstop
 y = np.ones(M)
 
 #Filter function with bandstop
-y[0] = 0
 y[k1:k2+1] = 0
 y[M-k2:M-k1+1] = 0
 
