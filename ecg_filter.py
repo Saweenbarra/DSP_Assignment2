@@ -23,19 +23,7 @@ fplot = plt.xlabel("Frequency (Hz)")
 fplot = plt.ylabel("dBFS")
 plt.xscale("log")
 
-'''
-n = np.arange(-200, 200+1)
-
-#Impulse response of a band stop filter between 20Hz and 120Hz https://youtu.be/Z0Vxuo1c5yY?t=1627
-h = (1/(n*np.pi)) * (np.sin(20/500*2*np.pi*n) - np.sin(120/500*2*np.pi*n))
-#L'hopitals rule - to avoid diving by 0 causing NaN error
-h[200] = 1 - (55/500*2*np.pi - 45/500*2*np.pi)/np.pi
-
-plt.figure(2)
-tplot = plt.plot(h)
-'''
-# https://www.youtube.com/watch?v=mvlxm8Jzlk4&list=PLxWwb-b9LnpCtqVTaACY_U28EheNGtk_r&index=9
-M = fs*3
+M = fs*2
 
 #Bandstop markers
 k1 = int(45/fs * M)
