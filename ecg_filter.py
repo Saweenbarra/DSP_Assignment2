@@ -5,9 +5,10 @@ import scipy.signal as signal
 
 data = np.loadtxt("shortecg.dat")
 fs = 250
+time = np.linspace(0,1/fs,len(data))
 
 plt.figure(1)
-tplot = plt.plot(data)
+tplot = plt.plot(time,data)
 
 dataf = np.fft.fft(data)
 #Convert FFT data to decibels relative to full scale (dBFS)
