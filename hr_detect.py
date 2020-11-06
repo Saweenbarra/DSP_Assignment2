@@ -54,7 +54,7 @@ for i in range(len(data)):
     data[i] = filter.dofilter(data[i])
 
 data *= data
-data = data[550:]
+data = data[M:]
 
 plt.figure(1)
 plot = plt.plot(data)
