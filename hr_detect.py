@@ -55,19 +55,17 @@ for i in range(len(data)):
 
 data *= data
 
-peaks = np.where(data[M:] > 0.08)
-peaks = np.delete(peaks, np.argwhere(np.ediff1d(peaks) <= 1) + 1)
+peaks = np.where(data[M:] > np.max(data[M:])*0.35)
+peaks = np.delete(peaks, np.argwhere(np.ediff1d(peaks) <= 10) + 1)
 peakstime = []
 hrate = []
 
 for i in range(len(peaks)):
-    peakstime.append(float(peaks[i]*fs/len(data)))
+    peakstime.append(float(peaks[i]/fs))
 for i in range(len(peakstime)-1):
     hrate.append(60/(peakstime[i+1] - peakstime[i]))
 
 plt.figure(1)
-plot = plt.plot(ecg_class.t,data)
-plt.figure(2)
-Hplot = plt.plot(hrate)
-print(hrate)
+Hplot = plt.plot(peakstime[:-1],hrate)
+print(peaks)
 plt.show()
