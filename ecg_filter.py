@@ -11,18 +11,17 @@ plt.figure(1)
 tplot = plt.plot(time,data)
 
 dataf = np.fft.fft(data)
-#Convert FFT data to decibels relative to full scale (dBFS)
-datafdB = 20*np.log10(abs(dataf)*2/len(dataf)/(pow(2,15)-1))
 
 #Create frequency axis
 f = np.linspace(0, fs, len(dataf))
 
 #Plot sample in frequency domain
 plt.figure(2)
-fplot = plt.plot(f, datafdB)
+fplot = plt.plot(f, abs(dataf))
 fplot = plt.xlabel("Frequency (Hz)")
-fplot = plt.ylabel("dBFS")
+fplot = plt.ylabel("")
 plt.xscale("log")
+plt.yscale("log")
 
 M = fs*2
 
@@ -61,13 +60,14 @@ for i in range(len(data)):
     data[i] = filter.dofilter(data[i])
 
 dataf = np.fft.fft(data)
-datafdB = 20*np.log10(abs(dataf)*2/len(dataf)/(pow(2,15)-1))
+#datafdB = 20*np.log10(abs(dataf)*2/len(dataf)/(pow(2,15)-1))
 
 plt.figure(4)
-fplot = plt.plot(f, datafdB)
+fplot = plt.plot(f, abs(dataf))
 fplot = plt.xlabel("Frequency (Hz)")
-fplot = plt.ylabel("dBFS")
+fplot = plt.ylabel("")
 plt.xscale("log")
+plt.yscale("log")
 
 plt.figure(5)
 tplot = plt.plot(data)
