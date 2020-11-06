@@ -54,8 +54,20 @@ for i in range(len(data)):
     data[i] = filter.dofilter(data[i])
 
 data *= data
-data = data[M:]
+
+peaks = np.where(data[M:] > 0.08)
+peaks = np.delete(peaks, np.argwhere(np.ediff1d(peaks) <= 1) + 1)
+peakstime = []
+hrate = []
+
+for i in range(len(peaks)):
+    peakstime.append(float(peaks[i]*fs/len(data)))
+for i in range(len(peakstime)-1):
+    hrate.append(60/(peakstime[i+1] - peakstime[i]))
 
 plt.figure(1)
-plot = plt.plot(data)
+plot = plt.plot(ecg_class.t,data)
+plt.figure(2)
+Hplot = plt.plot(hrate)
+print(hrate)
 plt.show()
