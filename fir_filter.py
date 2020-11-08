@@ -1,19 +1,20 @@
 import numpy as np
 
 def unittest():
-    mockData = np.zeros(10)
+    mockData = np.arange(1,11)
     mockCoeff = np.arange(1,11)
+    buffer = np.zeros(10)
     filter = FIR_filter(mockCoeff)
     successCounter = 0
     for i in range(len(mockData)):
         sum = 0
         j = len(mockData) - 1
-        mockData[0] = i
-        test = filter.dofilter(mockData[0])
-        for index in range(len(mockData)):
-            sum += mockData[index] * mockCoeff[index]
+        buffer[0] = mockData[i]
+        test = filter.dofilter(buffer[0])
+        for index in range(len(buffer)):
+            sum += buffer[index] * mockCoeff[index]
         while(j>0):
-            mockData[j] = mockData[j-1]
+            buffer[j] = buffer[j-1]
             j -= 1
         if test == sum:
             successCounter += 1
@@ -61,7 +62,6 @@ class FIR_filter:
         else:
             self.offset = 0
         
-
         return self.sum
 
 if __name__ == "__main__":
