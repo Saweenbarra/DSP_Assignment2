@@ -2,7 +2,7 @@ import numpy as np
 
 def unittest():
     mockData = np.random.rand(10)
-    mockCoeff = np.arange(1,11)
+    mockCoeff = np.random.rand(10)
     buffer = np.zeros(10)
     filter = FIR_filter(mockCoeff)
     successCounter = 0
