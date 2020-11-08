@@ -1,7 +1,7 @@
 import numpy as np
 
 def unittest():
-    mockData = np.arange(1,11)
+    mockData = np.random.rand(10)
     mockCoeff = np.arange(1,11)
     buffer = np.zeros(10)
     filter = FIR_filter(mockCoeff)
