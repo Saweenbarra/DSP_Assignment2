@@ -1,14 +1,15 @@
 import fir_filter as fir
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.signal as signal
 
 data = np.loadtxt("shortecg.dat")
 fs = 250
-time = np.linspace(0,1/fs,len(data))
+time = np.linspace(0,len(data)*1/fs,len(data))
 
 plt.figure(1)
-tplot = plt.plot(time,data)
+plt.plot(time,data)
+plt.xlabel("Time (s)")
+plt.ylabel("Volts (V)")
 
 dataf = np.fft.fft(data)
 
@@ -17,9 +18,8 @@ f = np.linspace(0, fs, len(dataf))
 
 #Plot sample in frequency domain
 plt.figure(2)
-fplot = plt.plot(f, abs(dataf))
-fplot = plt.xlabel("Frequency (Hz)")
-fplot = plt.ylabel("")
+plt.plot(f, abs(dataf))
+plt.xlabel("Frequency (Hz)")
 plt.xscale("log")
 plt.yscale("log")
 
@@ -43,8 +43,14 @@ k2 = int(0.5/fs * M)
 y[k1:k2+1] = 0
 y[M-k2:M-k1+1] = 0
 
+ftransfer = np.linspace(0, fs, M)
+plt.figure(3)
+plt.plot(ftransfer, y)
+plt.xlabel("Frequency (Hz)")
+
 y = np.fft.ifft(y)
 y = np.real(y)
+
 
 h = np.zeros(M)
 h[0:int(M/2)] = y[int(M/2):M]
@@ -52,25 +58,25 @@ h[int(M/2):M] = y[0:int(M/2)]
 
 h = h * np.hamming(M)
 
-plt.figure(3)
-tplot = plt.plot(h)
+plt.figure(4)
+plt.plot(h)
 
 filter = fir.FIR_filter(h)
 for i in range(len(data)):
     data[i] = filter.dofilter(data[i])
 
 dataf = np.fft.fft(data)
-#datafdB = 20*np.log10(abs(dataf)*2/len(dataf)/(pow(2,15)-1))
 
-plt.figure(4)
-fplot = plt.plot(f, abs(dataf))
-fplot = plt.xlabel("Frequency (Hz)")
-fplot = plt.ylabel("")
+plt.figure(5)
+plt.plot(f, abs(dataf))
+plt.xlabel("Frequency (Hz)")
 plt.xscale("log")
 plt.yscale("log")
 
-plt.figure(5)
-tplot = plt.plot(data)
+plt.figure(6)
+plt.plot(time,data)
+plt.xlabel("Time (s)")
+plt.ylabel("Volts (V)")
 
 
 plt.show()
