@@ -1,30 +1,20 @@
 import numpy as np
 
 def unittest():
-    mockData = np.random.rand(10)
-    mockCoeff = np.random.rand(10)
-    buffer = np.zeros(10)
+    #Generate mock data and mock coefficients
+    mockData = np.arange(1,9)
+    mockCoeff = np.arange(1,9)
+
+    #Empty array for output test to go in
+    test = np.zeros(len(mockData))
+
+    #Perform dofilter function on mock variables
     filter = FIR_filter(mockCoeff)
-    successCounter = 0
     for i in range(len(mockData)):
-        sum = 0
-        j = len(mockData) - 1
-        buffer[0] = mockData[i]
-        test = filter.dofilter(buffer[0])
-        for index in range(len(buffer)):
-            sum += buffer[index] * mockCoeff[index]
-        while(j>0):
-            buffer[j] = buffer[j-1]
-            j -= 1
-        if test == sum:
-            successCounter += 1
-            print("Check successful!")
-        else:
-            print("Check Failed!")
-    if successCounter == len(mockData):
-        print("All checks were successful, the circular buffer FIR filter method is working")
-    else:
-        print("At least one check failed, the circular buffer FIR filter method is not working")
+        test[i] = filter.dofilter(mockData[i])
+        print(test[i])
+    #Correct answers are 1,4,10,20,35,56,84,120
+    
 
 
 class FIR_filter:
