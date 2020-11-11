@@ -14,6 +14,7 @@ def unittest():
         test[i] = filter.dofilter(mockData[i])
         print(test[i])
     #Correct answers are 1,4,10,20,35,56,84,120
+    print("Expected: 1, 4, 10, 20, 35, 56, 84, 120")
     
 
 

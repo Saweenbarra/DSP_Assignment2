@@ -53,6 +53,7 @@ for i in range(len(data)):
 
 #take slice of data to use as template
 template_data = template_data[650:850]
+
 #reverse the data
 template_data = template_data[::-1]
 
@@ -80,5 +81,7 @@ for i in range(len(peakstime)-1):
     hrate.append(60/(peakstime[i+1] - peakstime[i]))
 
 plt.figure(1)
+plt.xlabel("Time (s)")
+plt.ylabel("BPM")
 Hplot = plt.plot(peakstime[:-1],hrate)
 plt.show()
